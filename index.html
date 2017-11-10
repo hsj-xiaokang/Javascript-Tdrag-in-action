@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tdrag项目拖动实战</title>
+  <style>
+    *{margin:0;padding:0;list-style:none;}
+
+    .parent{
+      width: 1500px;
+      height: 600px;
+      border: 1px solid red;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .outer{
+      width:1495px;
+      height:595px;
+      position:absolute;
+      left:10px;
+      top:10px;
+      background:url("images/lanren.png") repeat center center;
+    }
+
+    .inner{
+      width:80px;
+      height:80px;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- 代码部分begin -->
+  <div class="boxList parent">
+    <div class="outer">
+      <div class="inner"></div>
+    </div>
+  </div>
+
+  <button id="start_small">开始</button>
+  <button id="stop_small">停止</button>
+
+  <script src="js/jquery1.7.2.js"></script>
+  <script src="js/Tdrag.js"></script>
+  <script type="text/javascript">
+
+    $(function(){
+
+        $("#start_small").click("click",function(){
+            $.disable_open($("#start_small")[0]);
+        });
+        $("#stop_small").click("click",function(){
+            $.disable_cloose($("#start_small")[0]);
+        });
+
+      $(".outer").Tdrag({
+          cbStart:function(){//移动前的回调函数
+              console.log("left"+$(".outer")[0].offsetLeft);
+              console.log("top"+$(".outer")[0].offsetTop);
+          },
+
+          cbMove:function(){//移动中的回调函数
+          },
+
+          cbEnd:function(){//移动结束时候的回调函数
+              console.log("left"+$(".outer")[0].offsetLeft);
+              console.log("top"+$(".outer")[0].offsetTop);
+          }
+      });
+
+
+
+        $(".inner").Tdrag({
+            scope:".outer",
+            disable:true,
+            cbStart:function(){//移动前的回调函数
+                console.log("left"+$(".inner")[0].offsetLeft);
+                console.log("top"+$(".inner")[0].offsetTop);
+            },
+
+            cbMove:function(){//移动中的回调函数
+            },
+
+            cbEnd:function(){//移动结束时候的回调函数
+                console.log("left"+$(".inner")[0].offsetLeft);
+                console.log("top"+$(".inner")[0].offsetTop);
+            }
+        });
+    });
+
+  </script>
+  <!-- 代码部分end -->
+</body>
+</html>
