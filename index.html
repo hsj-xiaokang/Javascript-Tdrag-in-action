@@ -31,18 +31,23 @@
       top: 10px;
       background-color: white;
     }
+
   </style>
 </head>
 <body>
   <!-- 代码部分begin -->
   <div class="boxList parent">
     <div class="outer">
-      <div class="inner"></div>
+      <div style="width:1495px;height:595px;position:absolute;left:0px;top:0px;" id="m"></div>
+      <div class="inner" id="inner_1"></div>
+      <div class="inner" id="inner_2"></div>
     </div>
   </div>
 
-  <button id="start_small">开始</button>
-  <button id="stop_small">停止</button>
+
+  <button id="lock">加锁</button>
+  <button id="unlock">解锁</button>
+
 
   <script src="js/jquery1.7.2.js"></script>
   <script src="js/Tdrag.js"></script>
@@ -50,11 +55,13 @@
 
     $(function(){
 
-        $("#start_small").click("click",function(){
-            $.disable_open();
+        $("#unlock").click("click",function(){
+//            $.disable_open();
+            $("#m").css("z-index","-100000");
         });
-        $("#stop_small").click("click",function(){
-            $.disable_cloose();
+        $("#lock").click("click",function(){
+//            $.disable_cloose();
+            $("#m").css("z-index","100000");
         });
 
       $(".outer").Tdrag({
@@ -74,9 +81,9 @@
 
 
 
-        $(".inner").Tdrag({
+        $("#inner_1").Tdrag({
             scope:".outer",
-            disable:true,
+//            disable:true,
             cbStart:function(){//移动前的回调函数
                 console.log("inner->left"+$(".inner")[0].offsetLeft);
                 console.log("inner->top"+$(".inner")[0].offsetTop);
@@ -90,6 +97,24 @@
                 console.log("inner->top"+$(".inner")[0].offsetTop);
             }
         });
+
+        $("#inner_2").Tdrag({
+            scope:".outer",
+//            disable:true,
+            cbStart:function(){//移动前的回调函数
+                console.log("inner->left"+$(".inner")[0].offsetLeft);
+                console.log("inner->top"+$(".inner")[0].offsetTop);
+            },
+
+            cbMove:function(){//移动中的回调函数
+            },
+
+            cbEnd:function(){//移动结束时候的回调函数
+                console.log("inner->left"+$(".inner")[0].offsetLeft);
+                console.log("inner->top"+$(".inner")[0].offsetTop);
+            }
+        });
+
     });
 
   </script>
